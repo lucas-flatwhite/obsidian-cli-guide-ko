@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obsidian CLI — 한국어 가이드</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⬡</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+
+  <!-- ───────── HEADER ───────── -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">Obsidian <span class="accent">CLI</span></span>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="#overview">개요</a>
+        <a href="#install">설치</a>
+        <a href="#examples">예제</a>
+        <a href="#commands">명령어</a>
+        <a href="#shortcuts">단축키</a>
+        <a href="#troubleshooting">문제해결</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ───────── HERO ───────── -->
+  <section class="hero" id="overview">
+    <div class="container hero-inner">
+      <div class="hero-badge">Obsidian 1.12+</div>
+      <h1 class="hero-title">터미널에서 Obsidian을<br />자유롭게 제어하세요</h1>
+      <p class="hero-desc">
+        Obsidian CLI는 터미널에서 Obsidian을 직접 조작할 수 있는 명령줄 인터페이스입니다.<br />
+        스크립팅, 자동화, 외부 도구 연동을 통해 노트 작업의 생산성을 극대화하세요.
+      </p>
+      <div class="hero-code-wrap">
+        <div class="code-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="code-label">terminal</span>
+          <button class="copy-btn" data-target="heroCode">복사</button>
+        </div>
+        <pre class="hero-code" id="heroCode"><code><span class="cm-comment"># 오늘의 데일리 노트 열기</span>
+<span class="cm-cmd">obsidian</span> daily
+
+<span class="cm-comment"># vault 전체에서 검색</span>
+<span class="cm-cmd">obsidian</span> search <span class="cm-param">query=</span><span class="cm-str">"meeting notes"</span>
+
+<span class="cm-comment"># 데일리 노트에 할 일 추가</span>
+<span class="cm-cmd">obsidian</span> daily:append <span class="cm-param">content=</span><span class="cm-str">"- [ ] Buy groceries"</span></code></pre>
+      </div>
+      <div class="hero-warning">
+        <span class="warn-icon">⚠</span>
+        <span><strong>Obsidian 1.12 installer</strong> 이상이 필요합니다.
+        <a href="https://help.obsidian.md/Update+Obsidian" target="_blank" rel="noopener">업데이트 가이드 →</a></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── FEATURES ───────── -->
+  <section class="features">
+    <div class="container features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>즉시 실행</h3>
+        <p>단일 명령으로 노트 생성, 검색, 편집, 이동까지 — 모든 Obsidian 기능을 CLI로 제어합니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔁</div>
+        <h3>자동화 & 스크립팅</h3>
+        <p>cron, shell script, CI/CD 파이프라인에 통합하여 반복 작업을 자동화하세요.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖥</div>
+        <h3>TUI 인터페이스</h3>
+        <p>자동완성, 명령 히스토리, 역방향 검색을 지원하는 터미널 UI로 빠르게 탐색하세요.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔧</div>
+        <h3>개발자 도구</h3>
+        <p>플러그인 리로드, 스크린샷, JS 실행, DevTools 토글 등 플러그인 개발을 가속합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── INSTALL ───────── -->
+  <section class="section" id="install">
+    <div class="container">
+      <div class="section-label">시작하기</div>
+      <h2 class="section-title">설치 방법</h2>
+      <p class="section-desc">Obsidian CLI를 활성화하는 과정은 단 3단계입니다.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h3>Obsidian 최신 버전으로 업그레이드</h3>
+            <p>Installer 버전 <strong>1.12.4+</strong> 와 최신 얼리 액세스 버전 (1.12.x) 으로 업그레이드하세요.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h3>CLI 활성화</h3>
+            <p><strong>Settings → General</strong> 에서 <strong>Command line interface</strong> 를 활성화합니다.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <h3>CLI 등록</h3>
+            <p>화면의 안내에 따라 Obsidian CLI를 시스템에 등록합니다. 등록 후 터미널을 재시작하세요.</p>
+            <div class="os-tabs" data-group="install">
+              <button class="os-tab active" data-tab="mac">macOS</button>
+              <button class="os-tab" data-tab="win">Windows</button>
+              <button class="os-tab" data-tab="linux">Linux</button>
+            </div>
+            <div class="os-content active" data-os="mac">
+              <p class="os-note"><code>~/.zprofile</code> 에 PATH가 자동으로 추가됩니다. 다른 셸(bash, fish)을 사용하는 경우 해당 설정 파일에 직접 추가하세요.</p>
+              <div class="code-block-wrap">
+                <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-label">~/.zprofile</span><button class="copy-btn" data-target="macPath">복사</button></div>
+                <pre id="macPath"><code>export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"</code></pre>
+              </div>
+            </div>
+            <div class="os-content" data-os="win">
+              <p class="os-note">Windows에서는 <code>Obsidian.com</code> 터미널 리디렉터가 설치 폴더에 추가됩니다. Installer 1.12.4 이상에서 자동으로 포함됩니다.</p>
+            </div>
+            <div class="os-content" data-os="linux">
+              <p class="os-note"><code>/usr/local/bin/obsidian</code> 에 심볼릭 링크가 생성됩니다 (sudo 필요). 실패 시 <code>~/.local/bin/obsidian</code> 에 생성됩니다.</p>
+              <div class="code-block-wrap">
+                <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-label">terminal</span><button class="copy-btn" data-target="linuxPath">복사</button></div>
+                <pre id="linuxPath"><code>sudo ln -s /path/to/obsidian /usr/local/bin/obsidian</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Run a command -->
+      <div class="subsection">
+        <h3 class="sub-title">첫 번째 명령 실행</h3>
+        <p class="sub-desc">CLI를 설치했다면 아래처럼 바로 사용해보세요. <strong>Obsidian 앱이 실행 중</strong>이어야 합니다.</p>
+        <div class="two-col">
+          <div>
+            <p class="label-sm">단일 명령 실행</p>
+            <div class="code-block-wrap">
+              <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-label">shell</span><button class="copy-btn" data-target="singleCmd">복사</button></div>
+              <pre id="singleCmd"><code><span class="cm-comment"># 도움말 보기</span>
+<span class="cm-cmd">obsidian</span> help</code></pre>
+            </div>
+          </div>
+          <div>
+            <p class="label-sm">TUI 모드 사용</p>
+            <div class="code-block-wrap">
+              <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-label">shell</span><button class="copy-btn" data-target="tuiCmd">복사</button></div>
+              <pre id="tuiCmd"><code><span class="cm-comment"># TUI 열기 (자동완성 지원)</span>
+<span class="cm-cmd">obsidian</span></code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── EXAMPLES ───────── -->
+  <section class="section section-alt" id="examples">
+    <div class="container">
+      <div class="section-label">활용 예제</div>
+      <h2 class="section-title">이렇게 활용하세요</h2>
+      <p class="section-desc">일상적인 노트 작업부터 개발자 자동화까지, 실용적인 예제를 확인하세요.</p>
+
+      <div class="example-tabs-wrap">
+        <div class="example-tabs">
+          <button class="ex-tab active" data-ex="daily">일상 사용</button>
+          <button class="ex-tab" data-ex="dev">개발자</button>
+          <button class="ex-tab" data-ex="automation">자동화</button>
+        </div>
+
+        <div class="ex-panel active" id="ex-daily">
+          <div class="code-block-wrap">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-label">everyday use</span><button class="copy-btn" data-target="dailyCode">복사</button></div>
+            <pre id="dailyCode"><code><span class="cm-comment"># 오늘 데일리 노트 열기</span>
+<span class="cm-cmd">obsidian</span> daily
+
+<span class="cm-comment"># 데일리 노트에 할 일 추가</span>
+<span class="cm-cmd">obsidian</span> daily:append <span class="cm-param">content=</span><span class="cm-str">"- [ ] Buy groceries"</span>
+
+<span class="cm-comment"># vault 검색</span>
+<span class="cm-cmd">obsidian</span> search <span class="cm-param">query=</span><span class="cm-str">"meeting notes"</span>
+
+<span class="cm-comment"># 현재 파일 읽기</span>
+<span class="cm-cmd">obsidian</span> read
+
+<span class="cm-comment"># 데일리 노트의 모든 태스크 나열</span>
+<span class="cm-cmd">obsidian</span> tasks daily
+
+<span class="cm-comment"># 템플릿으로 새 노트 생성</span>
+<span class="cm-cmd">obsidian</span> create <span class="cm-param">name=</span><span class="cm-str">"Trip to Paris"</span> <span class="cm-param">template=</span>Travel
+
+<span class="cm-comment"># vault의 모든 태그와 빈도 보기</span>
+<span class="cm-cmd">obsidian</span> tags counts
+
+<span class="cm-comment"># 파일 두 버전 비교</span>
+<span class="cm-cmd">obsidian</span> diff <span class="cm-param">file=</span>README <span class="cm-param">from=</span>1 <span class="cm-param">to=</span>3</code></pre>
+          </div>
+        </div>
+
+        <div class="ex-panel" id="ex-dev">
+          <div class="code-block-wrap">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-label">developer commands</span><button class="copy-btn" data-target="devCode">복사</button></div>
+            <pre id="devCode"><code><span class="cm-comment"># 개발자 도구 열기</span>
+<span class="cm-cmd">obsidian</span> devtools
+
+<span class="cm-comment"># 개발 중인 플러그인 리로드</span>
+<span class="cm-cmd">obsidian</span> plugin:reload <span class="cm-param">id=</span>my-plugin
+
+<span class="cm-comment"># 앱 스크린샷 촬영</span>
+<span class="cm-cmd">obsidian</span> dev:screenshot <span class="cm-param">path=</span>screenshot.png
+
+<span class="cm-comment"># 앱 콘솔에서 JavaScript 실행</span>
+<span class="cm-cmd">obsidian</span> eval <span class="cm-param">code=</span><span class="cm-str">"app.vault.getFiles().length"</span>
+
+<span class="cm-comment"># JS 에러 목록 확인</span>
+<span class="cm-cmd">obsidian</span> dev:errors
+
+<span class="cm-comment"># CSS 속성 검사</span>
+<span class="cm-cmd">obsidian</span> dev:css <span class="cm-param">selector=</span><span class="cm-str">".markdown-preview-view"</span>
+
+<span class="cm-comment"># DOM 쿼리</span>
+<span class="cm-cmd">obsidian</span> dev:dom <span class="cm-param">selector=</span><span class="cm-str">".nav-folder-title"</span> text</code></pre>
+          </div>
+        </div>
+
+        <div class="ex-panel" id="ex-automation">
+          <div class="code-block-wrap">
+            <div class="code-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="code-label">automation script</span><button class="copy-btn" data-target="autoCode">복사</button></div>
+            <pre id="autoCode"><code><span class="cm-comment">#!/bin/bash</span>
+<span class="cm-comment"># 매일 아침 루틴: 데일리 노트 준비 스크립트</span>
+
+<span class="cm-comment"># 데일리 노트 생성 및 열기</span>
+<span class="cm-cmd">obsidian</span> daily
+
+<span class="cm-comment"># 고정 태스크 목록 추가</span>
+<span class="cm-cmd">obsidian</span> daily:append <span class="cm-param">content=</span><span class="cm-str">"## 오늘의 루틴\n- [ ] 이메일 확인\n- [ ] 스탠드업 미팅\n- [ ] 코드 리뷰"</span>
+
+<span class="cm-comment"># 최근 수정 파일 목록 클립보드에 복사</span>
+<span class="cm-cmd">obsidian</span> files --copy
+
+<span class="cm-comment"># 미해결 링크 확인</span>
+<span class="cm-cmd">obsidian</span> unresolved total
+
+<span class="cm-comment"># 특정 vault에서 검색 후 결과를 파일로 저장</span>
+<span class="cm-cmd">obsidian</span> vault=<span class="cm-str">"My Vault"</span> search <span class="cm-param">query=</span><span class="cm-str">"TODO"</span> <span class="cm-param">format=</span>json &gt; todos.json</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── PARAMETERS ───────── -->
+  <section class="section" id="params">
+    <div class="container">
+      <div class="section-label">사용법</div>
+      <h2 class="section-title">파라미터 & 플래그</h2>
+      <p class="section-desc">명령어는 <strong>파라미터</strong>와 <strong>플래그</strong>를 사용합니다.</p>
+
+      <div class="param-grid">
+        <div class="param-card">
+          <div class="param-badge">Parameter</div>
+          <h3>값이 있는 파라미터</h3>
+          <p><code>parameter=value</code> 형식으로 작성. 공백이 있으면 따옴표로 감쌉니다.</p>
+          <div class="code-block-wrap">
+            <pre><code><span class="cm-cmd">obsidian</span> create <span class="cm-param">name=</span>Note <span class="cm-param">content=</span><span class="cm-str">"Hello world"</span></code></pre>
+          </div>
+        </div>
+        <div class="param-card">
+          <div class="param-badge flag">Flag</div>
+          <h3>불리언 플래그</h3>
+          <p>값 없이 단독으로 사용하는 스위치. 포함하면 활성화됩니다.</p>
+          <div class="code-block-wrap">
+            <pre><code><span class="cm-cmd">obsidian</span> create <span class="cm-param">name=</span>Note open overwrite</code></pre>
+          </div>
+        </div>
+        <div class="param-card">
+          <div class="param-badge vault">Vault</div>
+          <h3>Vault 지정</h3>
+          <p>명령 앞에 <code>vault=&lt;name&gt;</code>을 붙여 특정 vault를 대상으로 합니다.</p>
+          <div class="code-block-wrap">
+            <pre><code><span class="cm-cmd">obsidian</span> <span class="cm-param">vault=</span><span class="cm-str">"My Vault"</span> search <span class="cm-param">query=</span>test</code></pre>
+          </div>
+        </div>
+        <div class="param-card">
+          <div class="param-badge copy">Copy</div>
+          <h3>출력 복사</h3>
+          <p>어떤 명령에도 <code>--copy</code> 를 붙이면 결과를 클립보드에 복사합니다.</p>
+          <div class="code-block-wrap">
+            <pre><code><span class="cm-cmd">obsidian</span> search <span class="cm-param">query=</span><span class="cm-str">"TODO"</span> --copy</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── COMMANDS ───────── -->
+  <section class="section section-alt" id="commands">
+    <div class="container">
+      <div class="section-label">명령어 레퍼런스</div>
+      <h2 class="section-title">전체 명령어</h2>
+      <p class="section-desc">카테고리별로 탐색하고 빠르게 검색하세요.</p>
+
+      <div class="cmd-search-wrap">
+        <input type="text" id="cmdSearch" class="cmd-search" placeholder="명령어 검색... (예: daily, search, sync)" />
+        <span class="search-icon">⌕</span>
+      </div>
+
+      <div class="cmd-categories" id="cmdCategories">
+
+        <!-- General -->
+        <details class="cmd-group" open>
+          <summary class="cmd-group-title"><span>⚙️</span> 일반 (General)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="help">
+              <div class="cmd-name"><code>help</code></div>
+              <div class="cmd-desc">모든 명령어 목록 표시. <code>help &lt;command&gt;</code>로 특정 명령 도움말 조회.</div>
+            </div>
+            <div class="cmd-item" data-name="version">
+              <div class="cmd-name"><code>version</code></div>
+              <div class="cmd-desc">Obsidian 버전 표시.</div>
+            </div>
+            <div class="cmd-item" data-name="reload">
+              <div class="cmd-name"><code>reload</code></div>
+              <div class="cmd-desc">앱 창 새로고침.</div>
+            </div>
+            <div class="cmd-item" data-name="restart">
+              <div class="cmd-name"><code>restart</code></div>
+              <div class="cmd-desc">앱 재시작.</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Files and Folders -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>📁</span> 파일 & 폴더 (Files &amp; Folders)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="file">
+              <div class="cmd-name"><code>file</code></div>
+              <div class="cmd-desc">파일 정보 조회 (기본: 활성 파일). <code>file=&lt;name&gt;</code>, <code>path=&lt;path&gt;</code></div>
+            </div>
+            <div class="cmd-item" data-name="files">
+              <div class="cmd-name"><code>files</code></div>
+              <div class="cmd-desc">vault 내 파일 목록. <code>folder=&lt;path&gt;</code> <code>ext=&lt;extension&gt;</code> <code>total</code></div>
+            </div>
+            <div class="cmd-item" data-name="folder">
+              <div class="cmd-name"><code>folder</code></div>
+              <div class="cmd-desc">폴더 정보 조회. <code>path=&lt;path&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="folders">
+              <div class="cmd-name"><code>folders</code></div>
+              <div class="cmd-desc">vault 내 폴더 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="open">
+              <div class="cmd-name"><code>open</code></div>
+              <div class="cmd-desc">파일 열기. <code>file=&lt;name&gt;</code> <code>newtab</code></div>
+            </div>
+            <div class="cmd-item" data-name="create">
+              <div class="cmd-name"><code>create</code></div>
+              <div class="cmd-desc">파일 생성 또는 덮어쓰기. <code>name</code> <code>content</code> <code>template</code> <code>overwrite</code> <code>open</code></div>
+            </div>
+            <div class="cmd-item" data-name="read">
+              <div class="cmd-name"><code>read</code></div>
+              <div class="cmd-desc">파일 내용 읽기 (기본: 활성 파일).</div>
+            </div>
+            <div class="cmd-item" data-name="append">
+              <div class="cmd-name"><code>append</code></div>
+              <div class="cmd-desc">파일 끝에 내용 추가. <code>content=&lt;text&gt;</code> (필수) <code>inline</code></div>
+            </div>
+            <div class="cmd-item" data-name="prepend">
+              <div class="cmd-name"><code>prepend</code></div>
+              <div class="cmd-desc">frontmatter 이후에 내용 추가. <code>content=&lt;text&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="move">
+              <div class="cmd-name"><code>move</code></div>
+              <div class="cmd-desc">파일 이동/이름 변경. <code>to=&lt;path&gt;</code> (필수). 내부 링크 자동 업데이트.</div>
+            </div>
+            <div class="cmd-item" data-name="rename">
+              <div class="cmd-name"><code>rename</code></div>
+              <div class="cmd-desc">파일 이름 변경. <code>name=&lt;name&gt;</code> (필수). 확장자 자동 유지.</div>
+            </div>
+            <div class="cmd-item" data-name="delete">
+              <div class="cmd-name"><code>delete</code></div>
+              <div class="cmd-desc">파일 삭제 (기본: 휴지통). <code>permanent</code> 플래그로 영구 삭제.</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Daily Notes -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>📅</span> 데일리 노트 (Daily Notes)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="daily">
+              <div class="cmd-name"><code>daily</code></div>
+              <div class="cmd-desc">데일리 노트 열기. <code>paneType=tab|split|window</code></div>
+            </div>
+            <div class="cmd-item" data-name="daily:path">
+              <div class="cmd-name"><code>daily:path</code></div>
+              <div class="cmd-desc">데일리 노트 경로 조회 (미생성 상태에서도 반환).</div>
+            </div>
+            <div class="cmd-item" data-name="daily:read">
+              <div class="cmd-name"><code>daily:read</code></div>
+              <div class="cmd-desc">데일리 노트 내용 읽기.</div>
+            </div>
+            <div class="cmd-item" data-name="daily:append">
+              <div class="cmd-name"><code>daily:append</code></div>
+              <div class="cmd-desc">데일리 노트 끝에 내용 추가. <code>content=&lt;text&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="daily:prepend">
+              <div class="cmd-name"><code>daily:prepend</code></div>
+              <div class="cmd-desc">데일리 노트 앞에 내용 추가. <code>content=&lt;text&gt;</code> (필수)</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Search -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>🔍</span> 검색 (Search)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="search">
+              <div class="cmd-name"><code>search</code></div>
+              <div class="cmd-desc">vault 텍스트 검색, 매칭 파일 경로 반환. <code>query=&lt;text&gt;</code> (필수) <code>limit</code> <code>format=text|json</code></div>
+            </div>
+            <div class="cmd-item" data-name="search:context">
+              <div class="cmd-name"><code>search:context</code></div>
+              <div class="cmd-desc">컨텍스트 포함 검색. grep 스타일 <code>path:line: text</code> 출력.</div>
+            </div>
+            <div class="cmd-item" data-name="search:open">
+              <div class="cmd-name"><code>search:open</code></div>
+              <div class="cmd-desc">검색 뷰 열기. <code>query=&lt;text&gt;</code>로 초기 쿼리 지정.</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Tasks -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>✅</span> 태스크 (Tasks)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="tasks">
+              <div class="cmd-name"><code>tasks</code></div>
+              <div class="cmd-desc">vault 내 태스크 목록. <code>todo</code> <code>done</code> <code>daily</code> <code>verbose</code> <code>format=json|tsv|csv</code></div>
+            </div>
+            <div class="cmd-item" data-name="task">
+              <div class="cmd-name"><code>task</code></div>
+              <div class="cmd-desc">태스크 조회 또는 업데이트. <code>toggle</code> <code>done</code> <code>todo</code> <code>status=&lt;char&gt;</code></div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Tags -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>🏷</span> 태그 (Tags)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="tags">
+              <div class="cmd-name"><code>tags</code></div>
+              <div class="cmd-desc">vault 태그 목록. <code>sort=count</code> <code>counts</code> <code>total</code> <code>active</code></div>
+            </div>
+            <div class="cmd-item" data-name="tag">
+              <div class="cmd-name"><code>tag</code></div>
+              <div class="cmd-desc">특정 태그 정보. <code>name=&lt;tag&gt;</code> (필수) <code>verbose</code></div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Links -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>🔗</span> 링크 (Links)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="backlinks">
+              <div class="cmd-name"><code>backlinks</code></div>
+              <div class="cmd-desc">파일의 백링크 목록 (기본: 활성 파일).</div>
+            </div>
+            <div class="cmd-item" data-name="links">
+              <div class="cmd-name"><code>links</code></div>
+              <div class="cmd-desc">파일의 아웃고잉 링크 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="unresolved">
+              <div class="cmd-name"><code>unresolved</code></div>
+              <div class="cmd-desc">vault 내 미해결 링크 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="orphans">
+              <div class="cmd-name"><code>orphans</code></div>
+              <div class="cmd-desc">인커밍 링크가 없는 파일 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="deadends">
+              <div class="cmd-name"><code>deadends</code></div>
+              <div class="cmd-desc">아웃고잉 링크가 없는 파일 목록.</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- File History -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>🕒</span> 파일 히스토리 (File History)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="diff">
+              <div class="cmd-name"><code>diff</code></div>
+              <div class="cmd-desc">파일 버전 비교. <code>from=&lt;n&gt;</code> <code>to=&lt;n&gt;</code> <code>filter=local|sync</code></div>
+            </div>
+            <div class="cmd-item" data-name="history">
+              <div class="cmd-name"><code>history</code></div>
+              <div class="cmd-desc">로컬 히스토리 버전 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="history:read">
+              <div class="cmd-name"><code>history:read</code></div>
+              <div class="cmd-desc">특정 로컬 히스토리 버전 읽기. <code>version=&lt;n&gt;</code></div>
+            </div>
+            <div class="cmd-item" data-name="history:restore">
+              <div class="cmd-name"><code>history:restore</code></div>
+              <div class="cmd-desc">로컬 히스토리 버전 복원. <code>version=&lt;n&gt;</code> (필수)</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Plugins -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>🧩</span> 플러그인 (Plugins)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="plugins">
+              <div class="cmd-name"><code>plugins</code></div>
+              <div class="cmd-desc">설치된 플러그인 목록. <code>filter=core|community</code> <code>versions</code></div>
+            </div>
+            <div class="cmd-item" data-name="plugin:enable">
+              <div class="cmd-name"><code>plugin:enable</code></div>
+              <div class="cmd-desc">플러그인 활성화. <code>id=&lt;id&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="plugin:disable">
+              <div class="cmd-name"><code>plugin:disable</code></div>
+              <div class="cmd-desc">플러그인 비활성화. <code>id=&lt;id&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="plugin:install">
+              <div class="cmd-name"><code>plugin:install</code></div>
+              <div class="cmd-desc">커뮤니티 플러그인 설치. <code>id=&lt;id&gt;</code> (필수) <code>enable</code></div>
+            </div>
+            <div class="cmd-item" data-name="plugin:reload">
+              <div class="cmd-name"><code>plugin:reload</code></div>
+              <div class="cmd-desc">플러그인 리로드 (개발자용). <code>id=&lt;id&gt;</code> (필수)</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Sync -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>☁️</span> 동기화 (Sync)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="sync">
+              <div class="cmd-name"><code>sync</code></div>
+              <div class="cmd-desc">동기화 일시정지 / 재개. <code>on</code> <code>off</code></div>
+            </div>
+            <div class="cmd-item" data-name="sync:status">
+              <div class="cmd-name"><code>sync:status</code></div>
+              <div class="cmd-desc">동기화 상태 및 사용량 표시.</div>
+            </div>
+            <div class="cmd-item" data-name="sync:history">
+              <div class="cmd-name"><code>sync:history</code></div>
+              <div class="cmd-desc">Sync 버전 히스토리 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="sync:restore">
+              <div class="cmd-name"><code>sync:restore</code></div>
+              <div class="cmd-desc">Sync 버전 복원. <code>version=&lt;n&gt;</code> (필수)</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Properties -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>🏷</span> 속성 (Properties)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="properties">
+              <div class="cmd-name"><code>properties</code></div>
+              <div class="cmd-desc">vault 또는 파일의 속성 목록. <code>format=yaml|json|tsv</code></div>
+            </div>
+            <div class="cmd-item" data-name="property:set">
+              <div class="cmd-name"><code>property:set</code></div>
+              <div class="cmd-desc">파일에 속성 설정. <code>name</code> <code>value</code> <code>type</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="property:read">
+              <div class="cmd-name"><code>property:read</code></div>
+              <div class="cmd-desc">속성 값 읽기. <code>name=&lt;name&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="property:remove">
+              <div class="cmd-name"><code>property:remove</code></div>
+              <div class="cmd-desc">속성 제거. <code>name=&lt;name&gt;</code> (필수)</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Publish -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>🌐</span> 퍼블리시 (Publish)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="publish:site">
+              <div class="cmd-name"><code>publish:site</code></div>
+              <div class="cmd-desc">퍼블리시 사이트 정보 (slug, URL) 표시.</div>
+            </div>
+            <div class="cmd-item" data-name="publish:status">
+              <div class="cmd-name"><code>publish:status</code></div>
+              <div class="cmd-desc">퍼블리시 변경사항 목록. <code>new</code> <code>changed</code> <code>deleted</code></div>
+            </div>
+            <div class="cmd-item" data-name="publish:add">
+              <div class="cmd-name"><code>publish:add</code></div>
+              <div class="cmd-desc">파일 퍼블리시. <code>changed</code>로 모든 변경 파일 일괄 퍼블리시.</div>
+            </div>
+            <div class="cmd-item" data-name="publish:remove">
+              <div class="cmd-name"><code>publish:remove</code></div>
+              <div class="cmd-desc">파일 게시 취소.</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Developer -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>🛠</span> 개발자 도구 (Developer)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="devtools">
+              <div class="cmd-name"><code>devtools</code></div>
+              <div class="cmd-desc">Electron 개발자 도구 토글.</div>
+            </div>
+            <div class="cmd-item" data-name="eval">
+              <div class="cmd-name"><code>eval</code></div>
+              <div class="cmd-desc">JavaScript 실행 및 결과 반환. <code>code=&lt;javascript&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="dev:screenshot">
+              <div class="cmd-name"><code>dev:screenshot</code></div>
+              <div class="cmd-desc">스크린샷 촬영 (base64 PNG 반환). <code>path=&lt;filename&gt;</code></div>
+            </div>
+            <div class="cmd-item" data-name="dev:console">
+              <div class="cmd-name"><code>dev:console</code></div>
+              <div class="cmd-desc">캡처된 콘솔 메시지 표시. <code>level=log|warn|error|info|debug</code> <code>limit=&lt;n&gt;</code></div>
+            </div>
+            <div class="cmd-item" data-name="dev:errors">
+              <div class="cmd-name"><code>dev:errors</code></div>
+              <div class="cmd-desc">캡처된 JS 에러 표시. <code>clear</code></div>
+            </div>
+            <div class="cmd-item" data-name="dev:css">
+              <div class="cmd-name"><code>dev:css</code></div>
+              <div class="cmd-desc">CSS 소스 위치와 함께 검사. <code>selector=&lt;css&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="dev:dom">
+              <div class="cmd-name"><code>dev:dom</code></div>
+              <div class="cmd-desc">DOM 요소 쿼리. <code>selector=&lt;css&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="dev:mobile">
+              <div class="cmd-name"><code>dev:mobile</code></div>
+              <div class="cmd-desc">모바일 에뮬레이션 토글. <code>on</code> <code>off</code></div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Vault & Workspace -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>🗄</span> Vault &amp; 워크스페이스</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="vault">
+              <div class="cmd-name"><code>vault</code></div>
+              <div class="cmd-desc">vault 정보 표시. <code>info=name|path|files|folders|size</code></div>
+            </div>
+            <div class="cmd-item" data-name="vaults">
+              <div class="cmd-name"><code>vaults</code></div>
+              <div class="cmd-desc">알려진 vault 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="workspace">
+              <div class="cmd-name"><code>workspace</code></div>
+              <div class="cmd-desc">워크스페이스 트리 표시.</div>
+            </div>
+            <div class="cmd-item" data-name="workspaces">
+              <div class="cmd-name"><code>workspaces</code></div>
+              <div class="cmd-desc">저장된 워크스페이스 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="workspace:save">
+              <div class="cmd-name"><code>workspace:save</code></div>
+              <div class="cmd-desc">현재 레이아웃을 워크스페이스로 저장.</div>
+            </div>
+            <div class="cmd-item" data-name="workspace:load">
+              <div class="cmd-name"><code>workspace:load</code></div>
+              <div class="cmd-desc">저장된 워크스페이스 불러오기.</div>
+            </div>
+            <div class="cmd-item" data-name="tabs">
+              <div class="cmd-name"><code>tabs</code></div>
+              <div class="cmd-desc">열린 탭 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="recents">
+              <div class="cmd-name"><code>recents</code></div>
+              <div class="cmd-desc">최근 열린 파일 목록.</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Themes -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>🎨</span> 테마 &amp; 스니펫 (Themes)</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="themes">
+              <div class="cmd-name"><code>themes</code></div>
+              <div class="cmd-desc">설치된 테마 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="theme:set">
+              <div class="cmd-name"><code>theme:set</code></div>
+              <div class="cmd-desc">테마 변경. <code>name=&lt;name&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="theme:install">
+              <div class="cmd-name"><code>theme:install</code></div>
+              <div class="cmd-desc">커뮤니티 테마 설치. <code>name=&lt;name&gt;</code> <code>enable</code></div>
+            </div>
+            <div class="cmd-item" data-name="snippets">
+              <div class="cmd-name"><code>snippets</code></div>
+              <div class="cmd-desc">설치된 CSS 스니펫 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="snippet:enable">
+              <div class="cmd-name"><code>snippet:enable</code></div>
+              <div class="cmd-desc">CSS 스니펫 활성화. <code>name=&lt;name&gt;</code> (필수)</div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Misc -->
+        <details class="cmd-group">
+          <summary class="cmd-group-title"><span>🔀</span> 기타 명령어</summary>
+          <div class="cmd-list">
+            <div class="cmd-item" data-name="commands">
+              <div class="cmd-name"><code>commands</code></div>
+              <div class="cmd-desc">사용 가능한 커맨드 팔레트 ID 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="command">
+              <div class="cmd-name"><code>command</code></div>
+              <div class="cmd-desc">Obsidian 명령 실행. <code>id=&lt;command-id&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="random">
+              <div class="cmd-name"><code>random</code></div>
+              <div class="cmd-desc">랜덤 노트 열기. <code>folder=&lt;path&gt;</code></div>
+            </div>
+            <div class="cmd-item" data-name="wordcount">
+              <div class="cmd-name"><code>wordcount</code></div>
+              <div class="cmd-desc">단어 수 / 문자 수 카운트. <code>words</code> <code>characters</code></div>
+            </div>
+            <div class="cmd-item" data-name="outline">
+              <div class="cmd-name"><code>outline</code></div>
+              <div class="cmd-desc">현재 파일의 헤딩 표시. <code>format=tree|md|json</code></div>
+            </div>
+            <div class="cmd-item" data-name="bookmarks">
+              <div class="cmd-name"><code>bookmarks</code></div>
+              <div class="cmd-desc">북마크 목록. <code>verbose</code> <code>format=json|tsv|csv</code></div>
+            </div>
+            <div class="cmd-item" data-name="web">
+              <div class="cmd-name"><code>web</code></div>
+              <div class="cmd-desc">웹 뷰어에서 URL 열기. <code>url=&lt;url&gt;</code> (필수)</div>
+            </div>
+            <div class="cmd-item" data-name="unique">
+              <div class="cmd-name"><code>unique</code></div>
+              <div class="cmd-desc">유니크 노트 생성.</div>
+            </div>
+            <div class="cmd-item" data-name="templates">
+              <div class="cmd-name"><code>templates</code></div>
+              <div class="cmd-desc">템플릿 목록.</div>
+            </div>
+            <div class="cmd-item" data-name="template:insert">
+              <div class="cmd-name"><code>template:insert</code></div>
+              <div class="cmd-desc">활성 파일에 템플릿 삽입. <code>name=&lt;template&gt;</code> (필수)</div>
+            </div>
+          </div>
+        </details>
+
+      </div>
+      <!-- no result message -->
+      <div class="no-result" id="noResult" style="display:none">
+        <p>검색 결과가 없습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── SHORTCUTS ───────── -->
+  <section class="section" id="shortcuts">
+    <div class="container">
+      <div class="section-label">TUI 단축키</div>
+      <h2 class="section-title">키보드 단축키</h2>
+      <p class="section-desc">TUI 모드에서 사용 가능한 모든 단축키입니다.</p>
+
+      <div class="shortcut-grid">
+        <div class="shortcut-group">
+          <h3>탐색 (Navigation)</h3>
+          <table>
+            <tr><td>커서 왼쪽</td><td><kbd>←</kbd> / <kbd>Ctrl+B</kbd></td></tr>
+            <tr><td>커서 오른쪽</td><td><kbd>→</kbd> / <kbd>Ctrl+F</kbd></td></tr>
+            <tr><td>줄 처음으로</td><td><kbd>Ctrl+A</kbd></td></tr>
+            <tr><td>줄 끝으로</td><td><kbd>Ctrl+E</kbd></td></tr>
+            <tr><td>한 단어 뒤로</td><td><kbd>Alt+B</kbd></td></tr>
+            <tr><td>한 단어 앞으로</td><td><kbd>Alt+F</kbd></td></tr>
+          </table>
+        </div>
+        <div class="shortcut-group">
+          <h3>편집 (Editing)</h3>
+          <table>
+            <tr><td>줄 처음까지 삭제</td><td><kbd>Ctrl+U</kbd></td></tr>
+            <tr><td>줄 끝까지 삭제</td><td><kbd>Ctrl+K</kbd></td></tr>
+            <tr><td>이전 단어 삭제</td><td><kbd>Ctrl+W</kbd> / <kbd>Alt+⌫</kbd></td></tr>
+          </table>
+        </div>
+        <div class="shortcut-group">
+          <h3>자동완성 (Autocomplete)</h3>
+          <table>
+            <tr><td>제안 모드 진입 / 수락</td><td><kbd>Tab</kbd></td></tr>
+            <tr><td>제안 모드 종료</td><td><kbd>Shift+Tab</kbd></td></tr>
+            <tr><td>첫 번째 제안 수락</td><td><kbd>→</kbd></td></tr>
+          </table>
+        </div>
+        <div class="shortcut-group">
+          <h3>히스토리 (History)</h3>
+          <table>
+            <tr><td>이전 히스토리</td><td><kbd>↑</kbd> / <kbd>Ctrl+P</kbd></td></tr>
+            <tr><td>다음 히스토리</td><td><kbd>↓</kbd> / <kbd>Ctrl+N</kbd></td></tr>
+            <tr><td>역방향 검색</td><td><kbd>Ctrl+R</kbd></td></tr>
+          </table>
+        </div>
+        <div class="shortcut-group">
+          <h3>기타 (Other)</h3>
+          <table>
+            <tr><td>명령 실행</td><td><kbd>Enter</kbd></td></tr>
+            <tr><td>취소 / 초기화</td><td><kbd>Escape</kbd></td></tr>
+            <tr><td>화면 지우기</td><td><kbd>Ctrl+L</kbd></td></tr>
+            <tr><td>종료</td><td><kbd>Ctrl+C</kbd> / <kbd>Ctrl+D</kbd></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── TROUBLESHOOTING ───────── -->
+  <section class="section section-alt" id="troubleshooting">
+    <div class="container">
+      <div class="section-label">문제해결</div>
+      <h2 class="section-title">Troubleshooting</h2>
+      <p class="section-desc">CLI 실행에 문제가 있다면 아래를 확인하세요.</p>
+
+      <div class="trouble-list">
+        <div class="trouble-item">
+          <div class="trouble-icon">🔄</div>
+          <div>
+            <h3>기본 체크리스트</h3>
+            <ul>
+              <li>Obsidian installer 버전 <strong>1.12.4 이상</strong> 사용 확인</li>
+              <li>CLI 등록 후 터미널 <strong>재시작</strong></li>
+              <li>Obsidian 앱이 <strong>실행 중</strong>인지 확인 (첫 번째 명령이 앱을 실행함)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trouble-item">
+          <div class="trouble-icon">🪟</div>
+          <div>
+            <h3>Windows</h3>
+            <p>Installer 1.12.4+ 필요. <code>Obsidian.com</code> 터미널 리디렉터가 <code>Obsidian.exe</code>와 같은 폴더에 추가됩니다.</p>
+          </div>
+        </div>
+
+        <div class="trouble-item">
+          <div class="trouble-icon">🍎</div>
+          <div>
+            <h3>macOS</h3>
+            <p><code>~/.zprofile</code> 에 아래 줄이 있는지 확인하세요. 없으면 수동으로 추가하세요.</p>
+            <div class="code-block-wrap">
+              <pre><code>export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"</code></pre>
+            </div>
+            <p class="os-note">다른 셸(bash, fish)을 사용 중이라면 해당 설정 파일에도 추가해야 합니다.</p>
+          </div>
+        </div>
+
+        <div class="trouble-item">
+          <div class="trouble-icon">🐧</div>
+          <div>
+            <h3>Linux</h3>
+            <p>심볼릭 링크 확인: <code>ls -l /usr/local/bin/obsidian</code></p>
+            <div class="code-block-wrap">
+              <pre><code><span class="cm-comment"># 심볼릭 링크 수동 생성</span>
+sudo ln -s /path/to/obsidian /usr/local/bin/obsidian
+
+<span class="cm-comment"># ~/.local/bin 에 생성된 경우, PATH에 추가</span>
+export PATH="$PATH:$HOME/.local/bin"</code></pre>
+            </div>
+            <p class="os-note">Snap 사용 시: <code>XDG_CONFIG_HOME="$HOME/snap/obsidian/current/.config"</code> 환경변수 설정이 필요할 수 있습니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── FOOTER ───────── -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <span class="logo-icon">⬡</span>
+        <span>Obsidian CLI 한국어 가이드</span>
+      </div>
+      <div class="footer-right">
+        <a href="https://help.obsidian.md/cli" target="_blank" rel="noopener">공식 문서 →</a>
+        <a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian.md</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">클립보드에 복사되었습니다 ✓</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
