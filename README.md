@@ -3,6 +3,7 @@
 Obsidian CLI 공식 문서를 기반으로 만든 한국어 가이드 웹사이트입니다.  
 CLI를 처음 접하는 사용자도 쉽게 이해하고 활용할 수 있도록 구성했습니다.
 
+**🌐 라이브 사이트:** [https://lucas-flatwhite.github.io/obsidian-cli-guide-ko/](https://lucas-flatwhite.github.io/obsidian-cli-guide-ko/)  
 **원본 문서:** [https://help.obsidian.md/cli](https://help.obsidian.md/cli)
 
 ---
@@ -32,6 +33,18 @@ Obsidian CLI는 터미널에서 Obsidian을 직접 제어할 수 있는 명령�
 
 ---
 
+## 🌐 배포
+
+GitHub Actions를 통해 `main` 브랜치에 push할 때마다 자동으로 배포됩니다.
+
+| 항목 | 내용 |
+|------|------|
+| **URL** | https://lucas-flatwhite.github.io/obsidian-cli-guide-ko/ |
+| **배포 방식** | GitHub Actions (`.github/workflows/deploy.yml`) |
+| **트리거** | `main` 브랜치 push 시 자동 실행 |
+
+---
+
 ## 🚀 로컬 실행
 
 별도의 빌드 도구 없이 정적 파일로 바로 실행할 수 있습니다.
@@ -53,9 +66,12 @@ python3 -m http.server 3000
 
 ```
 obsidian-cli-guide-ko/
-├── index.html   # 메인 페이지 (전체 한국어 가이드)
-├── style.css    # 다크 모던 미니멀 디자인 시스템
-├── app.js       # 탭 전환, 검색, 코드 복사 등 인터랙션
+├── .github/
+│   └── workflows/
+│       └── deploy.yml  # GitHub Actions 자동 배포
+├── index.html           # 메인 페이지 (전체 한국어 가이드)
+├── style.css            # 다크 모던 미니멀 디자인 시스템
+├── app.js               # 탭 전환, 검색, 코드 복사 등 인터랙션
 ├── LICENSE
 └── README.md
 ```
