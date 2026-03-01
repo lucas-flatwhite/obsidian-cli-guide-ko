@@ -19,6 +19,15 @@
   --green:       #4ade80;
   --yellow:      #facc15;
   --red:         #f87171;
+  --header-bg:   rgba(15,15,16,0.85);
+  --chrome-subtle-bg: rgba(255,255,255,.025);
+  --inline-code-bg: rgba(255,255,255,.07);
+  --syntax-comment: #4a4a55;
+  --syntax-cmd:     #7dd3fc;
+  --syntax-param:   #a78bfa;
+  --syntax-str:     #86efac;
+  --theme-toggle-track: rgba(255,255,255,.08);
+  --theme-toggle-thumb: #f0f0f2;
 
   --radius-sm:  6px;
   --radius-md:  10px;
@@ -34,6 +43,35 @@
 
   --header-h: 60px;
   --max-w:    1100px;
+}
+
+:root[data-theme='light'] {
+  --bg:          #f6f8fc;
+  --bg-alt:      #edf2f9;
+  --bg-card:     #ffffff;
+  --bg-hover:    #e7edf7;
+  --border:      rgba(17,24,39,0.12);
+  --border-hov:  rgba(17,24,39,0.22);
+
+  --text-primary:   #111827;
+  --text-secondary: #374151;
+  --text-muted:     #6b7280;
+
+  --accent:      #4f46e5;
+  --accent-dim:  rgba(79,70,229,0.12);
+  --accent-glow: rgba(79,70,229,0.28);
+  --green:       #15803d;
+  --yellow:      #b45309;
+  --red:         #b91c1c;
+  --header-bg:   rgba(246,248,252,0.86);
+  --chrome-subtle-bg: rgba(17,24,39,.04);
+  --inline-code-bg: rgba(17,24,39,.08);
+  --syntax-comment: #6b7280;
+  --syntax-cmd:     #0b5cad;
+  --syntax-param:   #6d28d9;
+  --syntax-str:     #166534;
+  --theme-toggle-track: rgba(17,24,39,.08);
+  --theme-toggle-thumb: #111827;
 }
 
 /* ─────────────────────────────────────────
@@ -82,7 +120,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--header-h);
-  background: rgba(15,15,16,0.85);
+  background: var(--header-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
@@ -126,6 +164,42 @@ strong { color: var(--text-primary); font-weight: 600; }
   text-decoration: none;
 }
 .main-nav a:hover { color: var(--text-primary); background: var(--bg-card); }
+
+.theme-toggle {
+  width: 46px;
+  height: 26px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--theme-toggle-track);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  margin-right: 6px;
+  flex-shrink: 0;
+  transition: border-color .18s, background .18s;
+}
+.theme-toggle:hover { border-color: var(--border-hov); }
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.theme-toggle-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg);
+  background: var(--theme-toggle-thumb);
+  font-size: calc(12px * var(--icon-scale));
+  transform: translateX(0);
+  transition: transform .2s, background .18s, color .18s;
+}
+.theme-toggle[aria-pressed='true'] .theme-toggle-thumb {
+  transform: translateX(20px);
+}
 
 .nav-toggle {
   display: none;
@@ -242,7 +316,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   gap: 6px;
   padding: 10px 14px;
   border-bottom: 1px solid var(--border);
-  background: rgba(255,255,255,.025);
+  background: var(--chrome-subtle-bg);
 }
 
 .dot {
@@ -292,10 +366,10 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 
 /* syntax tokens */
-.cm-comment { color: var(--text-muted); }
-.cm-cmd     { color: #7dd3fc; }
-.cm-param   { color: #a78bfa; }
-.cm-str     { color: #86efac; }
+.cm-comment { color: var(--syntax-comment); }
+.cm-cmd     { color: var(--syntax-cmd); }
+.cm-param   { color: var(--syntax-param); }
+.cm-str     { color: var(--syntax-str); }
 
 /* ─────────────────────────────────────────
    FEATURES
@@ -677,7 +751,7 @@ details[open] .cmd-group-title::after {
 
 .cmd-name code {
   font-size: calc(13px * var(--font-scale));
-  color: #7dd3fc;
+  color: var(--syntax-cmd);
   background: rgba(125,211,252,.08);
   padding: 2px 7px;
   border-radius: 4px;
@@ -692,7 +766,7 @@ details[open] .cmd-group-title::after {
 .cmd-desc code {
   font-size: calc(12px * var(--font-scale));
   color: var(--text-primary);
-  background: rgba(255,255,255,.07);
+  background: var(--inline-code-bg);
   padding: 1px 5px;
   border-radius: 3px;
 }
@@ -922,6 +996,7 @@ kbd {
     padding: 8px 12px;
     font-size: calc(14px * var(--font-scale));
   }
+  .main-nav.open .theme-toggle { margin: 0 0 6px; }
   .nav-toggle { display: flex; }
 
   .hero { padding-top: calc(var(--header-h) + 48px); padding-bottom: 56px; }

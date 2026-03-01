@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Obsidian CLI — 한국어 가이드</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⬡</text></svg>" />
+  <script>
+    (() => {
+      try {
+        const key = 'obsidian-cli-theme';
+        const saved = localStorage.getItem(key);
+        const theme = saved === 'light' || saved === 'dark'
+          ? saved
+          : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.dataset.theme = theme;
+      } catch (_) {}
+    })();
+  </script>
   <link rel="stylesheet" href="style.css" />
 
 </head>
@@ -18,6 +30,9 @@
         <span class="logo-text">Obsidian <span class="accent">CLI</span></span>
       </a>
       <nav class="main-nav" id="mainNav">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="라이트 모드로 전환" aria-pressed="false">
+          <span class="theme-toggle-thumb" aria-hidden="true">☾</span>
+        </button>
         <a href="#overview">개요</a>
         <a href="#install">설치</a>
         <a href="#examples">예제</a>

@@ -5,6 +5,32 @@
 /* ── Mobile nav toggle ── */
 const navToggle = document.getElementById('navToggle');
 const mainNav   = document.getElementById('mainNav');
+const themeToggle = document.getElementById('themeToggle');
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+
+  if (!themeToggle) return;
+  const isLight = theme === 'light';
+  const thumb = themeToggle.querySelector('.theme-toggle-thumb');
+
+  themeToggle.setAttribute('aria-pressed', String(isLight));
+  themeToggle.setAttribute('aria-label', isLight ? '다크 모드로 전환' : '라이트 모드로 전환');
+  if (thumb) thumb.textContent = isLight ? '☀' : '☾';
+}
+
+if (themeToggle) {
+  const initialTheme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+  applyTheme(initialTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const nextTheme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    applyTheme(nextTheme);
+    try {
+      localStorage.setItem('obsidian-cli-theme', nextTheme);
+    } catch (_) {}
+  });
+}
 
 navToggle?.addEventListener('click', () => {
   mainNav.classList.toggle('open');
