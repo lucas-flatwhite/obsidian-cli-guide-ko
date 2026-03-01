@@ -59,6 +59,11 @@ code, pre {
   font-family: var(--font-mono);
 }
 
+code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 strong { color: var(--text-primary); font-weight: 600; }
 
 /* ─────────────────────────────────────────
@@ -737,7 +742,7 @@ details[open] .cmd-group-title::after {
 .shortcut-group td:first-child { color: var(--text-secondary); }
 .shortcut-group td:last-child {
   text-align: right;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 kbd {
@@ -933,6 +938,12 @@ kbd {
   }
 
   .footer-inner { flex-direction: column; align-items: flex-start; }
+
+  .toast {
+    white-space: normal;
+    max-width: calc(100vw - 32px);
+    text-align: center;
+  }
 }
 
 @media (max-width: 480px) {
