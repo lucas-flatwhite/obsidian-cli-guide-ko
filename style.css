@@ -276,6 +276,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 .copy-btn:hover { color: var(--text-primary); border-color: var(--border-hov); }
 
 .code-block-wrap {
+  max-width: 100%;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--bg-card);
@@ -283,6 +284,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 
 .code-block-wrap pre {
+  max-width: 100%;
   padding: 16px 20px;
   font-size: calc(13px * var(--font-scale));
   line-height: 1.8;
@@ -541,6 +543,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 
 .param-card {
+  min-width: 0;
   padding: 24px 22px;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -772,6 +775,7 @@ kbd {
   border-bottom: 1px solid var(--border);
 }
 .trouble-item:first-child { padding-top: 0; }
+.trouble-item > :last-child { min-width: 0; }
 
 .trouble-icon {
   font-size: calc(22px * var(--icon-scale));
@@ -811,6 +815,7 @@ kbd {
 }
 
 .trouble-item .code-block-wrap {
+  max-width: 100%;
   margin: 12px 0;
 }
 
