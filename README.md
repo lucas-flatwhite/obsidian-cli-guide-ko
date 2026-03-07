@@ -1,5 +1,7 @@
 # ⬡ Obsidian CLI — 한국어 가이드
 
+**Korean** / [English](./README.en.md)
+
 Obsidian CLI 공식 문서를 기반으로 만든 한국어 가이드 웹사이트입니다.  
 CLI를 처음 접하는 사용자도 쉽게 이해하고 활용할 수 있도록 구성했습니다.
 
@@ -69,11 +71,12 @@ obsidian-cli-guide-ko/
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml  # GitHub Actions 자동 배포
-├── index.html           # 메인 페이지 (전체 한국어 가이드)
+├── index.html           # 메인 페이지 (한/영 가이드)
 ├── style.css            # 다크 모던 미니멀 디자인 시스템
 ├── app.js               # 탭 전환, 검색, 코드 복사 등 인터랙션
 ├── LICENSE
-└── README.md
+├── README.md
+└── README.en.md
 ```
 
 ---
