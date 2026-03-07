@@ -310,7 +310,7 @@
         <div class="param-card">
           <div class="param-badge vault">Vault</div>
           <h3>Vault 지정</h3>
-          <p>명령 앞에 <code>vault=&lt;name&gt;</code>을 붙여 특정 vault를 대상으로 합니다.</p>
+          <p>명령 앞에 <code>vault=&lt;name&gt;</code> 또는 <code>vault=&lt;id&gt;</code>를 붙여 특정 vault를 대상으로 합니다.</p>
           <div class="code-block-wrap">
             <pre><code><span class="cm-cmd">obsidian</span> <span class="cm-param">vault=</span><span class="cm-str">"My Vault"</span> search <span class="cm-param">query=</span>test</code></pre>
           </div>
@@ -571,7 +571,7 @@
             </div>
             <div class="cmd-item" data-name="history:open">
               <div class="cmd-name"><code>history:open</code></div>
-              <div class="cmd-desc">특정 히스토리 버전을 새 탭으로 열기. <code>version=&lt;n&gt;</code> (필수)</div>
+              <div class="cmd-desc">파일 복구(File recovery) 뷰 열기. <code>file=&lt;name&gt;</code> <code>path=&lt;path&gt;</code></div>
             </div>
           </div>
         </details>
@@ -637,7 +637,7 @@
             </div>
             <div class="cmd-item" data-name="sync:read">
               <div class="cmd-name"><code>sync:read</code></div>
-              <div class="cmd-desc">특정 Sync 버전 내용 읽기. <code>version=&lt;n&gt;</code></div>
+              <div class="cmd-desc">Sync 버전 읽기 (기본: 활성 파일). <code>file=&lt;name&gt;</code> <code>path=&lt;path&gt;</code> <code>version=&lt;n&gt;</code> (필수)</div>
             </div>
             <div class="cmd-item" data-name="sync:restore">
               <div class="cmd-name"><code>sync:restore</code></div>
@@ -645,7 +645,7 @@
             </div>
             <div class="cmd-item" data-name="sync:open">
               <div class="cmd-name"><code>sync:open</code></div>
-              <div class="cmd-desc">특정 Sync 버전을 새 탭으로 열기. <code>version=&lt;n&gt;</code></div>
+              <div class="cmd-desc">Sync 히스토리 열기 (기본: 활성 파일). <code>file=&lt;name&gt;</code> <code>path=&lt;path&gt;</code></div>
             </div>
             <div class="cmd-item" data-name="sync:deleted">
               <div class="cmd-name"><code>sync:deleted</code></div>
@@ -664,7 +664,7 @@
             </div>
             <div class="cmd-item" data-name="aliases">
               <div class="cmd-name"><code>aliases</code></div>
-              <div class="cmd-desc">파일의 aliases 속성 조회.</div>
+              <div class="cmd-desc">vault의 aliases 목록. <code>active</code> 또는 <code>file</code>/<code>path</code>로 특정 파일 조회, <code>total</code> <code>verbose</code></div>
             </div>
             <div class="cmd-item" data-name="property:set">
               <div class="cmd-name"><code>property:set</code></div>
@@ -773,7 +773,7 @@
             </div>
             <div class="cmd-item" data-name="vault:open">
               <div class="cmd-name"><code>vault:open</code></div>
-              <div class="cmd-desc">특정 vault 열기. <code>name=&lt;vault&gt;</code> 또는 <code>path=&lt;path&gt;</code></div>
+              <div class="cmd-desc">다른 vault로 전환 (TUI 전용). <code>name=&lt;name&gt;</code> (필수)</div>
             </div>
             <div class="cmd-item" data-name="workspace">
               <div class="cmd-name"><code>workspace</code></div>
@@ -801,7 +801,7 @@
             </div>
             <div class="cmd-item" data-name="tab:open">
               <div class="cmd-name"><code>tab:open</code></div>
-              <div class="cmd-desc">인덱스로 탭 열기. <code>index=&lt;n&gt;</code> (필수)</div>
+              <div class="cmd-desc">새 탭 열기. <code>group=&lt;id&gt;</code> <code>file=&lt;path&gt;</code> <code>view=&lt;type&gt;</code></div>
             </div>
             <div class="cmd-item" data-name="recents">
               <div class="cmd-name"><code>recents</code></div>
@@ -891,11 +891,11 @@
             </div>
             <div class="cmd-item" data-name="bookmarks">
               <div class="cmd-name"><code>bookmarks</code></div>
-              <div class="cmd-desc">북마크 목록. <code>verbose</code> <code>format=json|tsv|csv</code></div>
+              <div class="cmd-desc">북마크 목록. <code>total</code> <code>verbose</code> <code>format=json|tsv|csv</code></div>
             </div>
             <div class="cmd-item" data-name="bookmark">
               <div class="cmd-name"><code>bookmark</code></div>
-              <div class="cmd-desc">특정 북마크 정보 조회. <code>path=&lt;path&gt;</code></div>
+              <div class="cmd-desc">북마크 추가. <code>file</code> <code>subpath</code> <code>folder</code> <code>search</code> <code>url</code> <code>title</code></div>
             </div>
             <div class="cmd-item" data-name="web">
               <div class="cmd-name"><code>web</code></div>
@@ -960,22 +960,23 @@
           <table>
             <tr><td>제안 모드 진입 / 수락</td><td><kbd>Tab</kbd></td></tr>
             <tr><td>제안 모드 종료</td><td><kbd>Shift+Tab</kbd></td></tr>
-            <tr><td>첫 번째 제안 수락</td><td><kbd>→</kbd></td></tr>
+            <tr><td>새 입력에서 제안 모드 진입</td><td><kbd>↓</kbd></td></tr>
+            <tr><td>첫 번째/선택된 제안 수락</td><td><kbd>→</kbd></td></tr>
           </table>
         </div>
         <div class="shortcut-group">
           <h3>히스토리 (History)</h3>
           <table>
-            <tr><td>이전 히스토리</td><td><kbd>↑</kbd> / <kbd>Ctrl+P</kbd></td></tr>
-            <tr><td>다음 히스토리</td><td><kbd>↓</kbd> / <kbd>Ctrl+N</kbd></td></tr>
-            <tr><td>역방향 검색</td><td><kbd>Ctrl+R</kbd></td></tr>
+            <tr><td>이전 히스토리 / 제안 위로</td><td><kbd>↑</kbd> / <kbd>Ctrl+P</kbd></td></tr>
+            <tr><td>다음 히스토리 / 제안 아래로</td><td><kbd>↓</kbd> / <kbd>Ctrl+N</kbd></td></tr>
+            <tr><td>역방향 검색 (반복: Ctrl+R)</td><td><kbd>Ctrl+R</kbd></td></tr>
           </table>
         </div>
         <div class="shortcut-group">
           <h3>기타 (Other)</h3>
           <table>
-            <tr><td>명령 실행</td><td><kbd>Enter</kbd></td></tr>
-            <tr><td>취소 / 초기화</td><td><kbd>Escape</kbd></td></tr>
+            <tr><td>명령 실행 / 제안 수락</td><td><kbd>Enter</kbd></td></tr>
+            <tr><td>자동완성 취소 / 제안 종료 / 입력 초기화</td><td><kbd>Escape</kbd></td></tr>
             <tr><td>화면 지우기</td><td><kbd>Ctrl+L</kbd></td></tr>
             <tr><td>종료</td><td><kbd>Ctrl+C</kbd> / <kbd>Ctrl+D</kbd></td></tr>
           </table>
