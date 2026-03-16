@@ -167,10 +167,17 @@ const enStaticBindings = [
     type: 'html',
     en: 'Prefix a command with <code>vault=&lt;name&gt;</code> or <code>vault=&lt;id&gt;</code> to target a specific vault.'
   },
-  { selector: '.param-card h3', index: 3, type: 'text', en: 'Copy output' },
+  { selector: '.param-card h3', index: 3, type: 'text', en: 'Target a file' },
   {
     selector: '.param-card > p',
     index: 3,
+    type: 'html',
+    en: 'Use <code>file=&lt;filename&gt;</code> or <code>path=&lt;path&gt;</code> to target a file. <code>file</code> matches a filename, while <code>path</code> uses a vault-relative path.'
+  },
+  { selector: '.param-card h3', index: 4, type: 'text', en: 'Copy output' },
+  {
+    selector: '.param-card > p',
+    index: 4,
     type: 'html',
     en: 'Add <code>--copy</code> to any command to copy output to clipboard.'
   },

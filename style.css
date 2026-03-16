@@ -690,6 +690,10 @@ strong { color: var(--text-primary); font-weight: 600; }
   background: rgba(250,204,21,.1);
   color: var(--yellow);
 }
+.param-badge.file {
+  background: rgba(125,211,252,.12);
+  color: var(--syntax-cmd);
+}
 .param-badge.copy {
   background: rgba(248,113,113,.1);
   color: var(--red);
